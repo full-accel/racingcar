@@ -1,5 +1,7 @@
 package com.fullaccel.domain;
 
+import com.fullaccel.util.RandomUtils;
+
 public class BasicCar implements Car {
     private final String name;
     private int position = 0;
@@ -10,8 +12,9 @@ public class BasicCar implements Car {
 
     @Override
     public void move() {
-        // TODO: RandomUtils를 사용해 0~9 사이 난수 생성
-        // TODO: 난수가 4 이상일 때 position을 1 증가시키는 로직 구현
+        if(RandomUtils.generateRandomNumber() >= 4) {
+            this.position++;
+        }
     }
 
     @Override
