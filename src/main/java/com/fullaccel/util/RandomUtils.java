@@ -1,8 +1,10 @@
 package com.fullaccel.util;
 
+import java.util.Random;
+
 public class RandomUtils {
+    private static final Random random = new Random();
     public static int generateRandomNumber() {
-        // TODO: 0에서 9 사이의 무작위 값을 생성하여 반환
-        return 0;
-    }
+            return random.nextInt(10);
+        }
 }

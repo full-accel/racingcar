@@ -1,6 +1,7 @@
 package com.fullaccel.domain;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Cars {
     private final List<Car> carList;
@@ -10,12 +11,19 @@ public class Cars {
     }
 
     public void moveAll() {
-        // TODO: carList를 순회하며 모든 Car 객체의 move() 호출
+        carList.forEach(Car::move);
     }
 
     public List<String> getWinners() {
-        // TODO: carList에서 position이 가장 높은 자동차의 이름을 찾아 리스트로 반환
-        return null;
+        int maxPosition = carList.stream()
+                .mapToInt(Car::getPosition)
+                .max()
+                .orElse(0);
+
+        return carList.stream()
+                .filter(car -> car.getPosition() == maxPosition)
+                .map(Car::getName)
+                .collect(Collectors.toList());
     }
 
     public List<Car> getCarList() {
