@@ -10,6 +10,17 @@
 
 <br/>
 
+## 🎮 게임 실행 화면 및 소개
+
+<img width="645" height="436" alt="스크린샷 2026-05-12 오후 9 14 23" src="https://github.com/user-attachments/assets/a4eecb35-9e34-41a2-a6b8-eb334b4ad6da" />
+
+> 사용자가 플레이어의 이름과 차종(`Basic`, `SportsCar`, `Truck`), 그리고 시도할 횟수를 입력하면 경주가 시작됩니다. <br>
+> **매 라운드마다 각 차종별 고유의 전진 조건(난수 기반)에 따라 이동 여부가 결정되고, 그 진행 상황(위치)이 기호(`-`)로 출력됩니다.** <br>
+> 모든 라운드가 종료된 후 가장 멀리 이동한 최종 우승자를 가려내는 게임입니다. <br>
+> 추가로 예외 발생 시 프로그램이 종료되지 않고 올바른 값을 입력할 때까지 재입력을 요구하는 안정적인 UX를 제공합니다.
+
+<br/>
+
 ## 👨‍💻 Team & Contribution
 객체지향 설계 원칙을 준수하기 위해 뼈대 구축과 비즈니스 로직 구현으로 역할을 분담하여 협업을 진행했습니다.
 <table>
@@ -22,7 +33,7 @@
 </table>
 
 * **강찬미 (아키텍처 & 도메인 설계):** MVC 패키지 구조 세팅, `Car` 인터페이스 기반 다형성 설계, `Cars` 일급 컬렉션 도입 및 캡슐화 설계
-* **조한림 (비즈니스 로직 & 뷰):** Stream API를 활용한 우승자 추출 로직 구현, 입력 문자열 파싱 팩토리 분리, `Validator`와 재귀 호출을 활용한 예외 복구 구현, 직관적인 UI 출력
+* **조한림 (비즈니스 로직 & 뷰):** Stream API를 활용한 우승자 추출 로직 구현, 입력 문자열 파싱 팩토리 분리, `Validator`와 재귀 호출을 활용한 예외 복구 구현
 
 <br/>
 
@@ -30,6 +41,36 @@
 * **Language:** Java 21
 * **Architecture:** MVC Pattern, Object-Oriented Programming (OOP)
 * **Build Tool:** Gradle
+
+<br/>
+
+## 📂 Folder Structure
+
+MVC 패턴과 관심사 분리 원칙에 따라 패키지를 구성했습니다.
+
+```text
+src/main/java/com/fullaccel/
+├── Application.java           # 프로그램 실행 진입점 (Main)
+├── controller/
+│   └── GameController.java    # 도메인과 뷰를 연결하고 전체 흐름 제어
+├── domain/
+│   ├── Car.java               # 자동차 핵심 역할 규약 (Interface)
+│   ├── BasicCar.java          # 기본 자동차 정책
+│   ├── SportsCar.java         # 스포츠카 정책
+│   ├── Truck.java             # 트럭 정책
+│   └── Cars.java              # 일급 컬렉션 (자동차 리스트 래퍼)
+├── util/
+│   ├── RandomUtils.java       # 전진 조건을 위한 난수 생성기
+│   └── Validator.java         # 사용자 입력값 검증 및 예외 처리
+└── view/
+    ├── InputView.java         # 사용자 입력 프롬프트 및 처리
+    └── OutputView.java        # 라운드 진행 상황 및 우승자 출력
+
+```
+
+**💡 인터페이스와 다형성 설계 구조**
+* **인터페이스 (`Car`)**: `domain` 패키지 내에 모든 자동차가 공통으로 가져야 할 필수 행동(`move()`, `getName()`, `getPosition()`)을 인터페이스로 추상화했습니다.
+* **상속과 다형성 (`BasicCar`, `SportsCar`, `Truck`)**: 구체적인 차종 클래스들이 `Car` 인터페이스를 구현(`implements`)합니다. 이를 통해 컨트롤러는 개별 차종의 타입을 몰라도 `Car`라는 하나의 타입으로 묶어 다형성(Polymorphism)을 활용해 유연하게 레이싱 흐름을 제어할 수 있습니다.
 
 <br/>
 
@@ -170,32 +211,6 @@ classDiagram
     Car <|.. BasicCar : implements
     Car <|.. SportsCar : implements
     Car <|.. Truck : implements
-
-```
-
-<br/>
-
-## 📂 Folder Structure
-
-MVC 패턴과 관심사 분리 원칙에 따라 패키지를 구성했습니다.
-
-```text
-src/main/java/com/fullaccel/
-├── Application.java           # 프로그램 실행 진입점 (Main)
-├── controller/
-│   └── GameController.java    # 도메인과 뷰를 연결하고 전체 흐름 제어
-├── domain/
-│   ├── Car.java               # 자동차 핵심 역할 규약 (Interface)
-│   ├── BasicCar.java          # 기본 자동차 정책
-│   ├── SportsCar.java         # 스포츠카 정책
-│   ├── Truck.java             # 트럭 정책
-│   └── Cars.java              # 일급 컬렉션 (자동차 리스트 래퍼)
-├── util/
-│   ├── RandomUtils.java       # 전진 조건을 위한 난수 생성기
-│   └── Validator.java         # 사용자 입력값 검증 및 예외 처리
-└── view/
-    ├── InputView.java         # 사용자 입력 프롬프트 및 처리
-    └── OutputView.java        # 라운드 진행 상황 및 우승자 출력
 
 ```
 
