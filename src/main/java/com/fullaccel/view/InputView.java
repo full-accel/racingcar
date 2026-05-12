@@ -1,5 +1,7 @@
 package com.fullaccel.view;
 
+import com.fullaccel.util.Validator;
+
 import java.util.Scanner;
 
 public class InputView {
@@ -12,6 +14,7 @@ public class InputView {
     public int readTryCount() {
         System.out.println("시도할 횟수는 몇 회인가요?");
         String input = scanner.nextLine();
+        Validator.validTryCount(input);
         return Integer.parseInt(input);
     }
 }
