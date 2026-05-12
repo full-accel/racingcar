@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class InputView {
     private static final Scanner scanner = new Scanner(System.in);
     public String readCarInfo() {
-        System.out.println("자동차 이름과 차종을 입력하세요 (예: pobi:SportsCar, woni:Truck, jun:Basic)");
+        System.out.println("플레이어 이름과 차종을 입력하세요 (예: pobi:SportsCar, woni:Truck, jun:Basic)");
         return scanner.nextLine();
     }
 
